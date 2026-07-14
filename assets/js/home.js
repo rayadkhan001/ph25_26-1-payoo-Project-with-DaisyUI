@@ -1,7 +1,14 @@
 // LAST I WAS EDITING: 
 
-// VALIDATE PIN
-const validPin = 1234;
+// VALIDATE PIN - Gets the correct PIN (either from stored user or hardcoded)
+function getValidPin() {
+  const storedData = localStorage.getItem('userData');
+  if (storedData) {
+    const userData = JSON.parse(storedData);
+    return parseInt(userData.pin);
+  }
+  return 1234; // Default hardcoded PIN
+}
 
 // TRANSACTIONS-DATA:
 const transactionsData = [];
@@ -27,7 +34,7 @@ function getInputValue(id) {
 function getInnerText(id) {
   const element = document.getElementById(id);
   const elementValue = element.innerText;
-  const elementValueNumber = parseInt(elementValue);
+  const elementValueNumber = parseInt(elementValue.replace(/,/g, ''));
 
   return elementValueNumber;
 }
@@ -35,7 +42,7 @@ function getInnerText(id) {
 // REUSABLE FUNCTION TO SET INNER-TEXT (AVAILABLE BALANCE)
 function setInnerText(value) {
   const availableBalanceElement = document.getElementById("available-balance");
-  availableBalanceElement.innerText = value;
+  availableBalanceElement.innerText = value.toLocaleString();
 }
 
 // REUSABLE FUNCTION (TOGGLING FEATURE)
@@ -85,7 +92,7 @@ document.getElementById("add-money-btn").addEventListener("click", function (e) 
   }
 
   // SECOND: Validate the PIN
-  if (pin !== validPin) {
+  if (pin !== getValidPin()) {
     alert("Invalid PIN. Please enter the correct 4 digit PIN.");
     return;
   }
@@ -132,7 +139,7 @@ document.getElementById("withdraw-btn").addEventListener("click", function (e) {
   }
 
   // SECOND: Validate the PIN
-  if (pin !== validPin) {
+  if (pin !== getValidPin()) {
     alert("Invalid PIN. Please enter the correct 4 digit PIN.");
     return;
   }
@@ -170,7 +177,7 @@ document.getElementById("transfer-btn").addEventListener("click", function (e) {
   }
 
   // SECOND: VALIDATE THE PIN
-  if (pin !== validPin) {
+  if (pin !== getValidPin()) {
     alert("Invalid PIN. Please enter the correct 4 digit PIN.");
     return;
   }
@@ -258,7 +265,7 @@ document.getElementById("pay-bill-btn").addEventListener("click", function (e) {
   }
 
   // THIRD: VALIDATE THE PIN
-  if (pin !== validPin) {
+  if (pin !== getValidPin()) {
     alert("Invalid PIN. Please enter the correct 4 digit PIN.");
     return;
   }
@@ -287,12 +294,18 @@ document.getElementById("pay-bill-btn").addEventListener("click", function (e) {
 });
 
 // CARD #6: TRANSACTIONS FEATURE ------------------------------------------------------------------------------------------------
+let showAllTransactions = false;
+
 document.getElementById("transactions-button").addEventListener("click", function() {
   const transactionsContainer = document.getElementById("transactions-container");
+  const viewAllLink = document.getElementById("view-all-link");
 
   transactionsContainer.innerHTML = "";
 
-  for (const data of transactionsData) {
+  // Determine how many transactions to show
+  const transactionsToShow = showAllTransactions ? transactionsData : transactionsData.slice(0, 4);
+
+  for (const data of transactionsToShow) {
     const div = document.createElement("div");
     div.innerHTML = 
     `
@@ -316,6 +329,17 @@ document.getElementById("transactions-button").addEventListener("click", functio
 
     transactionsContainer.appendChild(div);
   }
+
+  // Show "View All" or "View Less" link if there are more than 4 transactions
+  if (transactionsData.length > 4) {
+    viewAllLink.innerText = showAllTransactions ? "View Less" : "View All";
+  }
+});
+
+// Handle "View All" link click
+document.getElementById("view-all-link").addEventListener("click", function() {
+  showAllTransactions = !showAllTransactions;
+  document.getElementById("transactions-button").click();
 });
 
 
@@ -355,4 +379,43 @@ document.getElementById("pay-bills-button").addEventListener("click", function()
 document.getElementById("transactions-button").addEventListener("click", function() {
   handleToggle("transactions-parent");
   handleToggleButton("transactions-button");
+  
+  // Render transactions when clicked
+  const transactionsContainer = document.getElementById("transactions-container");
+  const viewAllLink = document.getElementById("view-all-link");
+
+  transactionsContainer.innerHTML = "";
+
+  // Determine how many transactions to show
+  const transactionsToShow = showAllTransactions ? transactionsData : transactionsData.slice(0, 4);
+
+  for (const data of transactionsToShow) {
+    const div = document.createElement("div");
+    div.innerHTML = 
+    `
+      <div class="bg-white rounded-xl p-3 flex justify-between items-center mt-3">
+        <!-- IMG AND TEXT -->
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-[#f4f5f7]">
+            <img class="mx-auto" src="assets/img/wallet1.png" alt="Wallet">
+          </div>
+
+          <div class="ml-3">
+            <h1>${data.name}</h1>
+            <p>${data.date}</p>
+          </div>
+        </div>
+
+        <!-- TRANSACTIONS HISTORY MENU -->
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </div>
+    `;
+
+    transactionsContainer.appendChild(div);
+  }
+
+  // Show "View All" or "View Less" link if there are more than 4 transactions
+  if (transactionsData.length > 4) {
+    viewAllLink.innerText = showAllTransactions ? "View Less" : "View All";
+  }
 });

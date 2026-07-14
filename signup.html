@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payoo - Sign Up</title>
+    <!-- TAILWIND CSS & DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- FONT AWESOME CDN LINK -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+    <body class="bg-[#f4f5f7] h-[100vh] flex flex-col justify-center items-center">
+        <!-- BACKGROUND IMG & LOGO -->
+        <div class="h-[130px] w-[300px] bg-[url('./assets/img/bg.png')] bg-cover flex justify-center items-center">
+            <img src="assets/img/group.png" alt="Group">
+        </div>
+
+        <!-- SIGN UP FORM -->
+        <form class="w-[350px] bg-white rounded-2xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-center">Create Account</h2>
+
+            <!-- FULL NAME -->
+            <div>
+                <label class="font-semibold" for="full-name">Full Name</label>
+                <br>
+                <input id="full-name" type="text" placeholder="Enter Your Full Name" class="input bg-[#f4f5f7] mt-2 rounded-3xl w-full" />
+            </div>
+
+            <!-- MOBILE NUMBER -->
+            <div class="mt-5">
+                <label class="font-semibold" for="mobile-number">Mobile Number</label>
+                <br>
+                <input id="mobile-number" type="text" placeholder="Enter Your Number" class="input bg-[#f4f5f7] mt-2 rounded-3xl w-full" />
+            </div>
+
+            <!-- PIN -->
+            <div class="mt-5">
+                <label class="font-semibold" for="pin-number">Create 4 Digit PIN</label>
+                <br>
+                <div class="relative flex items-center">
+                    <input id="pin-number" type="password" placeholder="Enter 4-Digit PIN" class="input bg-[#f4f5f7] mt-2 rounded-3xl w-full pr-12" />
+                    <button type="button" id="togglePinSignup" class="absolute right-4 mt-2 text-gray-600 cursor-pointer">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONFIRM PIN -->
+            <div class="mt-5">
+                <label class="font-semibold" for="confirm-pin">Confirm PIN</label>
+                <br>
+                <div class="relative flex items-center">
+                    <input id="confirm-pin" type="password" placeholder="Confirm 4-Digit PIN" class="input bg-[#f4f5f7] mt-2 rounded-3xl w-full pr-12" />
+                    <button type="button" id="toggleConfirmPin" class="absolute right-4 mt-2 text-gray-600 cursor-pointer">
+                        <i class="fa-solid fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button id="signupButton" class="btn bg-[#0874F2] text-white mt-6 w-full rounded-3xl">Sign Up</button>
+
+            <!-- LOGIN LINK -->
+            <p class="text-center mt-4 text-gray-600">Already have an account? <a href="index.html" class="text-[#0874F2] font-semibold">Login</a></p>
+        </form>
+        <!-- SIGN UP FORM -->
+
+        <!-- JS LINKS -->
+        <script src="assets/js/signup.js"></script>
+        <script src="assets/js/password-toggle.js"></script>
+    </body>
+</html>

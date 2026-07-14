@@ -27,7 +27,7 @@
                 
                 <!-- LOG OUT BUTTON -->
                 <div>
-                    <button class="btn text-[#08080880]"><i class="fa-solid fa-arrow-right-from-bracket rotate-180 text-gray-700"></i> Log Out</button>
+                    <button id="logoutButton" class="btn text-[#08080880]"><i class="fa-solid fa-arrow-right-from-bracket rotate-180 text-gray-700"></i> Log Out</button>
                 </div>
             </div>
 
@@ -258,7 +258,7 @@
                 <!-- TRANSACTIONS HEADER -->
                 <div class="flex justify-between items-center">
                     <h1 class="my-5 font-bold">Transactions History</h1>
-                    <p class="text-[#08080880]">View All</p>
+                    <p id="view-all-link" class="text-[#08080880] cursor-pointer hover:text-[#0874F2] transition">View All</p>
                 </div>
 
                 <!-- TRANSACTIONS CARD -->
@@ -271,5 +271,6 @@
 
         <!-- JS LINKS -->
         <script src="assets/js/home.js"></script>
+        <script src="assets/js/logout.js"></script>
     </body>
 </html>
